@@ -1,0 +1,29 @@
+{
+  "tags"     : {
+    "allowUnknownTags": true
+  },
+  "source"   : {
+    "include"       : ["./src/field.js", "./assets/Evt.js"],
+    "includePattern": ".+[.]js?$",
+    "excludePattern": "docs"
+  },
+  "plugins"  : [],
+  "templates": {
+    "cleverLinks"    : false,
+    "monospaceLinks" : true,
+    "systemName"     : "remoteFileExplorer",
+    "footer"         : "Created by evanmao",
+    "copyright"      : "2013",
+    "navType"        : "vertical",
+    "theme"          : "haruki",
+    "linenums"       : true,
+    "collapseSymbols": true,
+    "inverseNav"     : false
+  },
+  "opts"     : {
+    "encoding"   : "utf8",
+    "destination": "./dist/docs/",
+    "recurse"    : true,
+    "private"    : true
+  }
+}

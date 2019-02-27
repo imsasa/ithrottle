@@ -1,0 +1,19 @@
+{
+  "name": "throttle",
+  "version": "0.1.0",
+  "description": "js函数节流实现",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imsasa/throttle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imsasa/throttle/issues"
+  },
+  "homepage": "https://github.com/imsasa/throttle#readme"
+}
