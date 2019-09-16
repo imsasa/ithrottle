@@ -1,39 +1,54 @@
 /**
- *
- * @param fn
- * @param delay
- * @param i
- * @returns {function(): Promise<any>}
+ * @function throttle
+ * @param fn {function} the function you want to limit execute
+ * @param delay {number} delay time ,default 1000ms
+ * @param immediateFlag {boolean} default false. if true, fn will execute  immediately and ignore the call within delay time;
+ * @param promiseFlag {boolean}
+ * @returns {throttle}
  */
-export default function (fn, delay = 1000, i) {
-    let timer, t=0, p, pres;
+export default function throttle(fn, delay = 1000, immediateFlag = false, promiseFlag = true) {
+    let timer, t = 0, p, pres, prej;
 
-    function _(ctx,args) {
+    function _(ctx, args) {
         timer = undefined;
-        p     = undefined;
-        i && (t = Date.now());
+        pres  = prej = p = undefined;
         return fn.apply(ctx, args);
     }
 
-    let retFn   = i ?
+    let retFn   = immediateFlag ?
         function () {
             if (Date.now() - t > delay) {
-                p = Promise.resolve(_(this, arguments));
+                t = Date.now();
+                p = promiseFlag ? Promise.resolve(_(this, arguments)) : _(this, arguments);
             }
             return p;
         } : function () {
-            timer&&clearTimeout(timer);
             let args = arguments;
-            if (p) {
-                timer = setTimeout(() => pres(_(this, args)), delay);
+            if (timer) {
+                clearTimeout(timer);
+                timer = setTimeout(() => promiseFlag ? pres(_(this, args)) : _(this, args), delay);
             } else {
-                p = new Promise( (res)=>{
+                p = promiseFlag ? new Promise((res, rej) => {
                     pres  = res;
-                    timer = setTimeout(() => pres(_(this, args)), delay);
-                });
+                    prej  = rej;
+                    timer = setTimeout(() => res(_(this, args)), delay);
+                }) : (timer = setTimeout(() => _(this, args), delay));
             }
             return p;
         };
-    retFn.clear = () => timer = clearTimeout(timer);
+    retFn.clear = () => {
+        timer = timer && clearTimeout(timer);
+        p     = undefined;
+        prej && prej();
+        return retFn;
+    };
+    // retFn.delay   = (arg) => {
+    //     delay = arg;
+    //     return retFn;
+    // };
+    // retFn.promise = (arg) => {
+    //     promiseFlag = !!arg;
+    //     return retFn;
+    // };
     return retFn;
 }
