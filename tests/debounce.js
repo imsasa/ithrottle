@@ -1,63 +1,107 @@
-import debounce from "../src/debounce";
+import {debounce} from "../src/index";
 
 var assert = require("assert");
 describe("debounce", function () {
     it("execute after 1s", function (done) {
-        let fn = debounce(() => Date.now());
+        let fn = debounce(function () {
+            return Date.now();
+        }, 1200,false,false,true);
         let t  = Date.now();
         fn().then(function (val) {
-            assert.equal(true, val - t > 1000);
-            done();
+            assert.equal(true, val - t >= 1200);
+            done()
         });
     });
-    it("call multi,execute one", function (done) {
-        let exeCnt = 0;
-        let fn     = debounce(function () {
-            return ++exeCnt;
-        });
-        let cnt    = 0;
-        let inter  = setInterval(function () {
-            cnt++;
-            if (cnt >= 5) {
-                done();
-                clearInterval(inter);
-            }
-            fn().then(function (val) {
-                assert.equal(1, val);
-            });
-        }, 100)
-    });
-    it("execute Immediately", function (done) {
-        let exeCnt = 0, cnt = 0;
-        this.timeout(5000);
+    it("execute multi times", function (done) {
         let fn = debounce(function () {
-            exeCnt++;
-            return exeCnt;
-        }, 3000, true);
-        fn().then(() => assert.equal(1, exeCnt));
-        let inter = setInterval(function () {
-            cnt++;
-            if (cnt >= 15) {
-                clearInterval(inter);
-                done();
-            }
+            return Date.now();
+        },undefined,false,false,true);
+        let t  = Date.now();
+        fn().then(function (val) {
+            assert.equal(true, val - t >= 1500);
+        });
+        fn().then(function (val) {
+            assert.equal(true, val - t >= 1500);
+        });
+        setTimeout(function (){
             fn().then(function (val) {
-                assert.equal(1, val);
+                assert.equal(true, val - t >= 1500);
+                done()
             });
-        }, 100)
+        }, 500)
+    });
+
+    it("execute multi times without promise", function (done) {
+        let cnt=1;
+        let t=Date.now();
+        let fn = debounce(function () {
+            assert.equal(true, Date.now() - t >= 1500);
+            assert.equal(cnt,1);
+            cnt++;
+            done()
+        },1000,false);
+        fn();
+        fn();
+        setTimeout(function (){
+            fn();
+        }, 500)
+    });
+    it("execute immediately", function (done) {
+        let fn = debounce(function () {
+            return Date.now();
+        }, 1000, true,false,true);
+        let t  = Date.now();
+        this.timeout(2000);
+        let exeT;
+        fn().then(function (val) {
+            exeT = val;
+            assert.equal(true, val - t < 30);
+        });
+        fn().then(function (val) {
+            console.log("val - exeT",val - exeT);
+            assert.equal(true, val - exeT > 1000);
+            done()
+        });
+    });
+    it("execute immediately without promise", function (done) {
+        let t  = Date.now();
+        let fn = debounce(function () {
+            assert.equal(true, Date.now() - t < 30);
+            done();
+        }, 1000, true);
+        fn();
     });
     it("clear", function (done) {
-        let exeCnt = 0;
-        this.timeout(5000);
-        let fn = debounce(function () {
-            exeCnt++;
-            return exeCnt;
-        }, 3000);
-        setTimeout(() => fn.clear(), 2000);
+        let cnt = 0;
+        let fn2 = debounce(function () {
+            cnt++;
+            return cnt;
+        }, 2000);
+        this.timeout(6000);
+        fn2();
+        setTimeout(() => fn2.clear(), 600);
         setTimeout(() => {
-            assert.equal(0, exeCnt);
+            assert.equal(true, cnt === 0);
             done()
-        }, 4000);
+        }, 3000);
+    });
+    it("clear with promise", function (done) {
+        let cnt = 0;
+        let fn2 = debounce(function () {
+            cnt++;
+            return cnt;
+        }, 2000,false,false,true);
+        this.timeout(6000);
+        fn2();
+        setTimeout(() => fn2.clear(), 600);
+        fn2().then(()=>{},function (val) {
+            assert.equal(true, cnt === 0);
+            assert.equal("$rej$", val);
+        });
+        setTimeout(() => {
+            assert.equal(true, cnt === 0);
+            done()
+        }, 3000);
     });
 });
 
