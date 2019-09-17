@@ -1,0 +1,26 @@
+{
+  "check-coverage": false,
+  "per-file"      : true,
+  "lines"         : 99,
+  "statements"    : 99,
+  "functions"     : 99,
+  "branches"      : 99,
+  "reporter"      : [
+    "text-summary",
+    "html"
+  ],
+  "sourceMap"     : false,
+  "instrument"    : true,
+  "require"       : [
+    "@babel/register"
+  ],
+  "extension"     : [
+    ".js"
+  ],
+  "exclude": [
+    "**/tests/*.js"
+  ],
+  "cache"         : true,
+  "temp-dir"      : "./dist/tests/.nyc-temp",
+  "report-dir"    : "./dist/tests/nyc"
+}

@@ -3,9 +3,7 @@ import debounce from "../src/debounce";
 var assert = require("assert");
 describe("debounce", function () {
     it("execute after 1s", function (done) {
-        let fn = debounce(function () {
-            return Date.now();
-        });
+        let fn = debounce(() => Date.now());
         let t  = Date.now();
         fn().then(function (val) {
             assert.equal(true, val - t > 1000);
@@ -49,17 +47,17 @@ describe("debounce", function () {
         }, 100)
     });
     it("clear", function (done) {
-        let  exeCnt = 0;
+        let exeCnt = 0;
         this.timeout(5000);
-        let fn     = debounce(function () {
+        let fn = debounce(function () {
             exeCnt++;
             return exeCnt;
-        },3000);
-        setTimeout(()=>fn.clear(),2000);
-        setTimeout(()=>{
-            assert.equal(0,exeCnt);
+        }, 3000);
+        setTimeout(() => fn.clear(), 2000);
+        setTimeout(() => {
+            assert.equal(0, exeCnt);
             done()
-        },4000);
+        }, 4000);
     });
 });
 
