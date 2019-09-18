@@ -4,11 +4,17 @@
 
 ## how to use
 
+```bash
+npm i ithorttle;
+
+```
+
 ### throttle-以固定的频率执行函数
 
 使函数原本不定时、频繁地调用转成按固定频率执行。
 
 ```javascript
+import {throttle} from "ithrottle";
 let foo     = function () {
     console.log("foo");
 };
@@ -26,6 +32,7 @@ setInterval( ()=>wrapFoo(), 200);
 延迟执行函数，在指定的延迟时间内，再次调用函数会重新计算延迟时间。
 
 ```javascript
+import {debounce} from "ithrottle";
 let bar=function(){
   console.log("bar");
   console.log(Date.now()-startTime)
