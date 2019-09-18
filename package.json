@@ -1,6 +1,6 @@
 {
-  "name"           : "throttle",
-  "version"        : "0.1.0",
+  "name"           : "ithrottle",
+  "version"        : "1.0.0",
   "description"    : "js函数节流实现",
   "main"           : "index.js",
   "devDependencies": {
