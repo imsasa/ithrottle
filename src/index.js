@@ -57,9 +57,9 @@ function _throttle_(fn, delay = 1000, opt, mode) {
  * @param {object} [opt]
  * @returns {Function}
  */
-export function throttle(fn, delay, opt) {
+module.exports.throttle = function throttle(fn, delay, opt) {
     return _throttle_(fn, delay, opt, 0)
-}
+};
 
 /**
  *
@@ -68,6 +68,6 @@ export function throttle(fn, delay, opt) {
  * @param {object} [opt]
  * @returns {Function}
  */
-export function debounce(fn, delay, opt) {
+module.exports.debounce = function (fn, delay, opt) {
     return _throttle_(fn, delay, opt, 1);
-}
+};

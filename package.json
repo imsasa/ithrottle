@@ -1,47 +1,47 @@
 {
-  "name"           : "ithrottle",
-  "version"        : "1.0.1",
-  "description"    : "js函数节流实现",
-  "main"           : "./src/index.js",
+  "name": "ithrottle",
+  "version": "1.0.2",
+  "description": "js函数节流实现",
+  "main": "./src/index.js",
   "devDependencies": {
-    "@babel/core"                        : "^7.2.2",
+    "@babel/core": "^7.2.2",
     "@babel/plugin-transform-modules-umd": "^7.2.0",
-    "@babel/preset-env"                  : "^7.2.3",
-    "babel-loader"                       : "^8.0.5",
-    "babel-plugin-istanbul"              : "^5.1.0",
-    "babel-register"                     : "^6.26.0",
-    "chai"                               : "^4.2.0",
-    "cross-env"                          : "^5.2.0",
-    "eslint"                             : "^5.12.0",
-    "istanbul"                           : "^0.4.5",
-    "istanbul-instrumenter-loader"       : "^3.0.1",
-    "jsdoc"                              : "^3.5.5",
-    "jsdoc-to-markdown"                  : "^4.0.1",
-    "jsdom"                              : "^13.1.0",
-    "mocha"                              : "^4.0.1",
-    "nyc"                                : "^13.3.0"
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-istanbul": "^5.1.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.12.0",
+    "istanbul": "^0.4.5",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "jsdoc": "^3.5.5",
+    "jsdoc-to-markdown": "^4.0.1",
+    "jsdom": "^13.1.0",
+    "mocha": "^4.0.1",
+    "nyc": "^13.3.0"
   },
-  "scripts"        : {
-    "clean"   : "rimraf dist",
-    "gendoc"  : "jsdoc -c jsdoc.conf.json",
-    "gendoc2" : "jsdoc2md ./src/debounce.js",
-    "test"    : "mocha",
+  "scripts": {
+    "clean": "rimraf dist",
+    "gendoc": "jsdoc -c jsdoc.conf.json",
+    "gendoc2": "jsdoc2md ./src/debounce.js",
+    "test": "mocha",
     "test:nyc": "cross-env NODE_ENV=test nyc mocha --ui bdd ./tests/**.js"
   },
-  "dependencies"   : {
-    "@babel/register"                               : "^7.0.0",
+  "dependencies": {
+    "@babel/register": "^7.0.0",
     "babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
-    "mockjs"                                        : "^1.0.1-beta3",
-    "regenerator-runtime"                           : "^0.13.1"
+    "mockjs": "^1.0.1-beta3",
+    "regenerator-runtime": "^0.13.1"
   },
-  "repository"     : {
+  "repository": {
     "type": "git",
-    "url" : "git+https://github.com/imsasa/throttle.git"
+    "url": "git+https://github.com/imsasa/throttle.git"
   },
-  "author"         : "sasa",
-  "license"        : "ISC",
-  "bugs"           : {
+  "author": "sasa",
+  "license": "ISC",
+  "bugs": {
     "url": "https://github.com/imsasa/throttle/issues"
   },
-  "homepage"       : "https://github.com/imsasa/throttle#readme"
+  "homepage": "https://github.com/imsasa/throttle#readme"
 }
