@@ -5,7 +5,7 @@ describe("debounce", function () {
     it("execute after 1s", function (done) {
         let fn = debounce(function () {
             return Date.now();
-        }, 1200,false,false,true);
+        }, 1200,{promise:true});
         let t  = Date.now();
         fn().then(function (val) {
             assert.equal(true, val - t >= 1200);
@@ -15,7 +15,7 @@ describe("debounce", function () {
     it("execute multi times", function (done) {
         let fn = debounce(function () {
             return Date.now();
-        },undefined,false,false,true);
+        },undefined,{promise:true});
         let t  = Date.now();
         fn().then(function (val) {
             assert.equal(true, val - t >= 1500);
@@ -49,7 +49,7 @@ describe("debounce", function () {
     it("execute immediately", function (done) {
         let fn = debounce(function () {
             return Date.now();
-        }, 1000, true,false,true);
+        }, 1000, {immediate:true,promise:true});
         let t  = Date.now();
         this.timeout(2000);
         let exeT;
@@ -68,7 +68,7 @@ describe("debounce", function () {
         let fn = debounce(function () {
             assert.equal(true, Date.now() - t < 30);
             done();
-        }, 1000, true);
+        }, 1000, {immediate:true});
         fn();
     });
     it("clear", function (done) {
@@ -90,7 +90,7 @@ describe("debounce", function () {
         let fn2 = debounce(function () {
             cnt++;
             return cnt;
-        }, 2000,false,false,true);
+        }, 2000,{promise:true});
         this.timeout(6000);
         fn2();
         setTimeout(() => fn2.clear(), 600);

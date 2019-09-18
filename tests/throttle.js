@@ -4,7 +4,7 @@ describe("debounce", function () {
     it("execute after 1s", function (done) {
         let fn = throttle(function () {
             return Date.now();
-        },1200,false,false,true);
+        },1200,{promise:true});
         let t  = Date.now();
         fn().then(function (val) {
             assert.equal(true, val - t >= 1200);
@@ -14,8 +14,7 @@ describe("debounce", function () {
     it("leaveFlag is true", function (done) {
         let fn = throttle(function (arg) {
             return arg;
-        },1200,false,true,true);
-        let t  = Date.now();
+        },1200,{leave:true,promise:true});
         fn(1).then(function (val) {
             assert.equal(1, val);
         });
@@ -31,7 +30,7 @@ describe("debounce", function () {
         let exeCnt = 0;
         let fn     = throttle(function () {
             return ++exeCnt;
-        },1000,false,false,true);
+        },1000,{promise:true});
         let cnt    = 0;
         let inter  = setInterval(function () {
             cnt++;
@@ -50,7 +49,7 @@ describe("debounce", function () {
         let fn1 = throttle(function () {
             exeCnt++;
             return exeCnt;
-        }, 3000, true,false,true);
+        }, 3000, {immediate:true,promise:true});
         fn1().then(() => assert.equal(1, exeCnt));
         let inter = setInterval(function () {
             cnt++;
@@ -69,12 +68,12 @@ describe("debounce", function () {
         let fn2     = throttle(function () {
             exeCnt++;
             return exeCnt;
-        },3000,false,false,true);
+        },3000,{promise:true});
         setTimeout(()=>fn2.clear(),2000);
         setTimeout(()=>{
             assert.equal(0,exeCnt);
             done()
-        },4000);
+        },{delay:4000});
     });
 
     it("execute multi times without promise", function (done) {
@@ -85,7 +84,7 @@ describe("debounce", function () {
             assert.equal(cnt,1);
             cnt++;
             done()
-        });
+        },{});
         fn();
         fn();
         setTimeout(function (){
@@ -93,7 +92,3 @@ describe("debounce", function () {
         }, 500);
     });
 });
-
-
-
-
