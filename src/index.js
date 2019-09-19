@@ -30,11 +30,11 @@ function _throttle_(fn, delay = 1000, opt, mode) {
     }
 
     function retFn() {
+        if (!timer || !leave) args = arguments;
         if (!timer && Date.now() - t > delay && immediate) {
             t = Date.now();
             return promise ? Promise.resolve(fn.apply(this, args)) : fn.apply(this, args);
         }
-        if (!timer || !leave) args = arguments;
         (!p && promise) ? p = new Promise((res, rej) => _timer_(this, res, rej))
             : _timer_(this, pres, prej);
         return p;
@@ -45,6 +45,7 @@ function _throttle_(fn, delay = 1000, opt, mode) {
         pres = p = undefined;
         prej && prej("$rej$");
         prej = undefined;
+        t    = 0;
         return retFn;
     };
     return retFn;
