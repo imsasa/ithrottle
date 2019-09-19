@@ -1,11 +1,10 @@
 {
   "name"           : "ithrottle",
-  "version"        : "1.0.3",
+  "version"        : "1.0.4",
   "description"    : "js函数节流实现",
   "main"           : "./src/index.js",
   "devDependencies": {
     "@babel/core"                        : "^7.2.2",
-    "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env"                  : "^7.2.3",
     "babel-plugin-istanbul"              : "^5.1.0",
     "babel-register"                     : "^6.26.0",
