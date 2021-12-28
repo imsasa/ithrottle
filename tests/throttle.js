@@ -1,5 +1,5 @@
-import {debounce, throttle} from "../src/index";
-var assert = require("assert");
+import {debounce, throttle} from "../src/index.js";
+import assert from "assert";
 describe("debounce", function () {
     it("execute after 1s", function (done) {
         let fn = throttle(function () {

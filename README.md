@@ -55,12 +55,12 @@ setTimeout(wrapBar,1000);
 
 - **arguments**
   
-  -  {boolean} immediate=false ，为true则首次调用立即执行；
+  - {boolean} immediate=false ，为true则首次调用立即执行；
   - {boolean} leave=false  ，为true则忽略指定延迟时间内的调用；
   - {boolean} promise=false ，为true则执行后返回Promise。
 
 - **return**
-  - {function} clear， 取消执行。
+  - {function} clear， 取消还末执行的函数。
 
 ### debounce
 
