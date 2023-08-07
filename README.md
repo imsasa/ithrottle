@@ -53,13 +53,12 @@ setTimeout(wrapBar,1000);
 
 ### throttle
 
-- **arguments**
-  
-  - {boolean} immediate=false ，为true则首次调用立即执行；
+#### **arguments**
+- opt {Object|Number} 
+  - {boolean} immediate=true ，为true则首次调用不delay；
   - {boolean} leave=false  ，为true则忽略指定延迟时间内的调用；
-  - {boolean} promise=false ，为true则执行后返回Promise。
 
-- **return**
+#### **return**
   - {function} clear， 取消还末执行的函数。
 
 ### debounce
