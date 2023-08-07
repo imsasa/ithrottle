@@ -5,7 +5,7 @@
 ## how to use
 
 ```bash
-npm i ithorttle;
+npm i https://github.com/imsasa/ithrottle.git
 
 ```
 
