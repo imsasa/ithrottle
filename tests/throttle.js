@@ -1,20 +1,21 @@
 import {debounce, throttle} from "../src/index.js";
 import assert from "assert";
 describe("debounce", function () {
-    it("execute after 1s", function (done) {
+    it("execute after 1s", function () {
         let fn = throttle(function () {
+            console.log("Date.now()",Date.now());
             return Date.now();
-        },1200,{promise:true});
+        },{immediate:false,delay:1300});
         let t  = Date.now();
-        fn().then(function (val) {
+        return fn().then(function (val) {
+            console.log('dddd',val - t >= 1200);
             assert.equal(true, val - t >= 1200);
-            done();
         });
     });
     it("leaveFlag is true", function (done) {
         let fn = throttle(function (arg) {
             return arg;
-        },1200,{leave:true,promise:true});
+        },{leave:true,delay:1200});
         fn(1).then(function (val) {
             assert.equal(1, val);
         });
@@ -30,7 +31,7 @@ describe("debounce", function () {
         let exeCnt = 0;
         let fn     = throttle(function () {
             return ++exeCnt;
-        },1000,{promise:true});
+        },1000);
         let cnt    = 0;
         let inter  = setInterval(function () {
             cnt++;
@@ -49,7 +50,7 @@ describe("debounce", function () {
         let fn1 = throttle(function () {
             exeCnt++;
             return exeCnt;
-        }, 3000, {immediate:true,promise:true});
+        }, 3000);
         fn1().then(() => assert.equal(1, exeCnt));
         let inter = setInterval(function () {
             cnt++;
@@ -68,7 +69,7 @@ describe("debounce", function () {
         let fn2     = throttle(function () {
             exeCnt++;
             return exeCnt;
-        },3000,{promise:true});
+        },3000);
         setTimeout(()=>fn2.clear(),2000);
         setTimeout(()=>{
             assert.equal(0,exeCnt);
